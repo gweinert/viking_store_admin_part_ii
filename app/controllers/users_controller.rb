@@ -64,5 +64,4 @@ class UsersController < ApplicationController
       params.require(:user).permit(:first_name, :last_name, :email, :billing_id, :shipping_id)
     end
 
->>>>>>> sep_admin_features
 end
