@@ -19,15 +19,20 @@
 <% @users.each do |user| %>
 
   <tr>
-  <td><%= user.id %></td>
+    <td><%= user.id %></td>
     <td><%= user.first_name %> <%= user.last_name %></td>
     <td><%= user.created_at.strftime("%m-%d-%y")   %></td>
     <td><%= user.default_billing_address_id.city.name %></td>
     <td><%= user.default_shipping_address_id.state.name %></td>
-    <td><%= user.o  rders.count %></td>
+    <td><%= user.orders.count %></td>
     <% unless user.orders.last.nil? %>
-    <td><%= user.orders.last.checkout_date ?  
-            user.orders.last.checkout_date.strftime("%m-%d-%y")  : "N/A" %></td>
+
+    <td>
+       <%= user.orders.last.checkout_date ?  
+           user.orders.last.checkout_date.strftime("%m-%d-%y")  
+          : "N/A" %>
+    </td>
+
     <% else %>
     <td> N/A </td>
     <% end %>
