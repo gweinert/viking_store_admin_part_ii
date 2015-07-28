@@ -1,5 +1,5 @@
 <h1 class="page-header text-center"> Users </h1>
-
+<div class="bg-success"><%= flash[:success] %></div>
 <div class="category col-md-12">
 <%= link_to 'New User' , new_user_path, class: 'btn btn-lg btn-success center-block' %>
 <br>
@@ -22,8 +22,8 @@
     <td><%= user.id %></td>
     <td><%= user.first_name %> <%= user.last_name %></td>
     <td><%= user.created_at.strftime("%m-%d-%y")   %></td>
-    <td><%= user.default_billing_address_id.city.name %></td>
-    <td><%= user.default_shipping_address_id.state.name %></td>
+    <td><%= user.default_billing_address_id.city.name if user.default_billing_address_id %></td>
+    <td><%= user.default_shipping_address_id.state.name if user.default_billing_address_id%></td>
     <td><%= user.orders.count %></td>
     <% unless user.orders.last.nil? %>
 
