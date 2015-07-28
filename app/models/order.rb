@@ -1,6 +1,7 @@
 class Order < ActiveRecord::Base
   has_many :order_contents
   has_many :products, :through => :order_contents
+  belongs_to :users
 
   def self.time_series_day(days=7)
 

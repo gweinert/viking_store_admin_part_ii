@@ -5,4 +5,5 @@ Rails.application.routes.draw do
   resources :dashboard, only: :index
   resources :categories
   resources :products
+  resources :users
 end

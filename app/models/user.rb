@@ -1,10 +1,11 @@
 class User < ActiveRecord::Base
 has_many :addresses
-belongs_to :shipping_address, :class_name => "Address",
+belongs_to :default_shipping_address_id, :class_name => "Address",
                               :foreign_key => "shipping_id"
-belongs_to :billing_address, :class_name => "Address",
+belongs_to :default_billing_address_id, :class_name => "Address",
                               :foreign_key => "billing_id"
 has_one :credit_card
+has_many :orders
 
  
 
