@@ -1,0 +1,15 @@
+<h1 class="text-center">
+  User Information
+</h1>
+
+<h3> First Name:  <span class="text-info"><%= @user.first_name %></span></h3>
+
+<h3>Last Name:  <span class="text-info"><%= @user.last_name %> </span> </h3>
+
+<h3>Email:  <span class="text-info"><%= @user.email %> </span></h3>
+
+<h3>Default Billing Address:  <span class="text-info"><br>
+    <%= @user.default_billing_address_id.street_address %>, <%= @user.default_billing_address_id.city.name %> , <%= @user.default_billing_address_id.state.name %> </span></h3>
+
+<h3>Default Shipping Address:  <span class="text-info"><br>
+    <%= @user.default_shipping_address_id.street_address %>, <%= @user.default_shipping_address_id.city.name %> , <%= @user.default_shipping_address_id.state.name %> </span></h3>
