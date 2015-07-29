@@ -8,12 +8,12 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
   end
-
+  
   def addresses
   end
 
   def unplaced
-
+    @user = User.find(params[:id])
   end
   
   def new

@@ -1,50 +1,161 @@
-<h1 class="text-center">
-  User Information
-</h1>
+<div class="user-section">
+  <div class="container">
+    <h1 class="text-center">
+      Demographic Information
+    </h1>
 
-<h3> First Name:  <span class="text-info"><%= @user.first_name %></span></h3>
+    <h3> First Name:  <span class="text-info"><%= @user.first_name %></span></h3>
 
-<h3>Last Name:  <span class="text-info"><%= @user.last_name %> </span> </h3>
+    <h3>Last Name:  <span class="text-info"><%= @user.last_name %> </span> </h3>
 
-<h3>Email:  <span class="text-info"><%= @user.email %> </span></h3>
+    <h3>Email:  <span class="text-info"><%= @user.email %> </span></h3>
 
-<h3>Default Billing Address:  <span class="text-info"><br>
-    <%= @user.default_billing_address_id.street_address %>, <%= @user.default_billing_address_id.city.name %> , <%= @user.default_billing_address_id.state.name %> </span></h3>
+    <h3>Default Billing Address:  <span class="text-info"><br>
+        <%= @user.default_billing_address_id.street_address %>, <%= @user.default_billing_address_id.city.name %> , <%= @user.default_billing_address_id.state.name %> </span></h3>
 
-<h3>Default Shipping Address:  <span class="text-info"><br>
-    <%= @user.default_shipping_address_id.street_address %>, <%= @user.default_shipping_address_id.city.name %> , <%= @user.default_shipping_address_id.state.name %> </span></h3>
+    <h3>Default Shipping Address:  <span class="text-info"><br>
+        <%= @user.default_shipping_address_id.street_address %>, <%= @user.default_shipping_address_id.city.name %> , <%= @user.default_shipping_address_id.state.name %> </span></h3>
 
 
-<%= link_to "Edit #{@user.first_name} #{@user.last_name}'s information"  , edit_user_path, class: 'btn btn-xs btn-primary' %><br>
-<%= link_to "Delete #{@user.first_name} #{@user.last_name}" , users_path, method: 'delete', :data => {confirm: 'Are you sure you want to delete?'} ,class: 'btn btn-xs btn-primary' %><br>
-<%= link_to "View Saved Addresses", user_addresses_path, class: 'btn btn-xs btn-primary' %><br>
-<%= link_to "View Unplaced Order(cart)", user_unplaced_path, class: 'btn btn-xs btn-primary' %>
+    <%= link_to "Edit #{@user.first_name} #{@user.last_name}'s information"  , edit_user_path, class: 'btn btn-xs btn-primary' %><br>
+    <%= link_to "Delete #{@user.first_name} #{@user.last_name}" , users_path, method: 'delete', :data => {confirm: 'Are you sure you want to delete?'} ,class: 'btn btn-xs btn-primary' %><br>
+    <%= link_to "View Saved Addresses", addresses_path, class: 'btn btn-xs btn-primary' %><br>
+    <% if @user.orders.last.checkout_date %>
+    <%= link_to "View Unplaced Order(cart)", unplaced_path, class: 'btn btn-xs btn-primary' %>
+    <% else %>
+    <%= link_to "View Unplaced Order(cart)", unplaced_path, class: 'btn btn-xs btn-primary disabled' %>WHHHHHHHH
+    <% end %>
+    <br>
+  </div>
+</div> 
+<br>
+
+
+<div class="user-section">
+  <div class="container">
+    <h1 class="text-center">Credit Card Information</h1>
+
+    <h3> First Name:  <span class="text-info"><%= @user.first_name %></span></h3>
+
+    <h3>Last Name:  <span class="text-info"><%= @user.last_name %> </span> </h3>
+    
+    <% if @user.credit_card %>
+
+    <h3>Number:  
+      <span class="text-info">
+        <%=  @user.credit_card.card_number %> 
+      </span>
+    </h3>
+
+    <h3>Expiration:  
+      <span class="text-info">
+        <%= "#{@user.credit_card.exp_month} /
+             #{@user.credit_card.exp_year}" %> 
+      </span>
+    </h3>
+
+    <h3>Brand: 
+      <span class="text-info">
+        <%= @user.credit_card.brand %> 
+      </span>
+    </h3>
+     <%= link_to "Remove Card", 
+          credit_card_path(params[:id]), method: :delete,
+           :data => {confirm: 'Are you sure you want to delete?'} ,class: 'btn btn-xs btn-danger' %>
+    <%  else %>
+         <h2 class="text-center text-danger" > NO CREDIT CARD ON FILE </h2>
+    <% end %>
+
+  </div>
+</div>
 
 <br>
 
-<h1 class="text-center">Credit Card Information</h1>
+<div class="user-section">
+  <div class="text-center">
+    <h2>Admin Actions for <%= "#{@user.first_name} 
+                               #{@user.last_name} "%>
+    <h2>
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-offset-3 col-md-6 user-buttons">
+       <%= link_to "Create Order", unplaced_path, class: 'btn btn-lg btn-block btn-info' %>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-md-3"></div>
+        <div class="col-md-offset-3 col-md-6 user-buttons">
+       <%= link_to "Create Address", unplaced_path, class: 'btn btn-lg btn-block btn-info' %>
+        </div>
+      </div>
+      
+  </div>
+</div>
 
-<h3> First Name:  <span class="text-info"><%= @user.first_name %></span></h3>
+<br>
 
-<h3>Last Name:  <span class="text-info"><%= @user.last_name %> </span> </h3>
+<div class="user-section">
+  <div class="text-center">
+    <h2 class="page-header">Order History <h2>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"></h3>
+        </div>
+        <div class="panel-body">
+          <table class="table table-bordered table-hover">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Order Date</th>
+                <th>Status</th>
+                <th >Value</th>
+                <th>Show</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @user.orders.each do |order| %>
+              <tr>
+                <td><%= order.id %></td>
+                  <% if order.checkout_date %>
+                    <td><%= order.checkout_date.strftime("%m-%d-%y")    %>
+                    </td>
+                    <td>PLACED</td>
+                  <% else %>
+                    <td><%= order.created_at.strftime("%m-%d-%y")    %>
+                    </td>
+                    <td>
+                      <span class="text-danger">
+                        UNPLACED
+                      </span>
+                    </td>
+                  <% end %>
+                  <td>
+                    <%= order.total %></td>
+                  <td>
+                    <%= link_to "Show", class: "btn btn-xs btn-primary"%>
+                  </td>
+                  <td>
+                    <%= link_to "Edit",class: 'btn btn-xs btn-primary'%>
+                  </td>
+                  <td>
+                    <%= link_to "Delete",  method: 'delete', :data => {confirm: 'Are you sure you want to delete?'} ,class: 'btn btn-xs btn-danger' %>
+                  </td>
+                <% end %>
+              <tr>
+            </tbody>
+      </table>
+        </div>
+      </div>
 
-<h3>Number:  <span class="text-info"><%= @user.credit_card.card_number %> </span></h3>
-
-<h3>Expiration:  
-  <span class="text-info">
-    <%= "#{@user.credit_card.exp_month} /
-         #{@user.credit_card.exp_year}" %> 
-  </span>
-</h3>
-
-<h3>Brand: 
-  <span class="text-info">
-    <%= @user.credit_card.brand %> 
-  </span>
-</h3>
+  </div>
+</div>
 
 
 
+<br>
+<br>
 
 
 
