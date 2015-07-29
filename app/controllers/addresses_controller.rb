@@ -38,6 +38,20 @@ class AddressesController < ApplicationController
 
   def edit
     @address = Address.find(params[:id])
+    @user = @address.user
+    @states = State.all
+    @cities = City.all
+  end
+
+  def update
+    @address = Address.find(params[:id])
+    if @address.update(params_hash)
+      flash[:success] = "Successfully Updated New Address"
+      redirect_to addresses_path({id: @address.user.id})
+    else
+      render :edit
+    end
+
   end
 
   def destroy
