@@ -11,6 +11,26 @@ class AddressesController < ApplicationController
 
   end
 
+  def new
+    @address = Address.new
+    @states = State.all
+    @cities = City.all
+    @user = User.find(params[:id])
+  end
+
+  def create
+    @address = Address.new(params_hash)
+    @user = User.find(params[:id])
+    @address.user_id = @user.id
+    if @address.save
+      flash[:success] = "Successfully Created New Address"
+      redirect_to addresses_path({id: @address.user.id})
+    else
+      flash.now[:error] = "Failed to create new user"
+      render :new
+    end
+  end
+
   def show 
     @address = Address.find(params[:id])
     # @addresses = Address.where("user_id = ?" , params[:id])
@@ -26,4 +46,10 @@ class AddressesController < ApplicationController
     redirect_to addresses_path({id: @address.user.id})
 
   end
+
+  private
+    def params_hash
+      params.require(:address).permit(:street_address, :secondary_address, :city_id, :state_id, :zip_code, :user_id)
+    end
+
 end

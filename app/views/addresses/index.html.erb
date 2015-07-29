@@ -1,6 +1,7 @@
 <% if @user %>
-    <h1>@user.first_name %> Addresses</h1>
-    <%= link_to "Create a new address", new_address_path %>
+    <h1><%=@user.first_name %> Addresses</h1>
+    <%= link_to "Create a new address", 
+    {:controller => "addresses", :action => "new", :id=>params[:id]} %>
 <% else %>
     <h1>Address</h1>
     <p>Create new addresses from within <%= link_to "User", users_path %> profiles</p>
