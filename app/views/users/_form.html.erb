@@ -1,0 +1,33 @@
+<%= form_for @user do |f| %>
+  <div class="formgroup">
+    <%= f.label :first_name %>
+    <%= f.text_field :first_name, :class => "form-control" %>
+    <div class="bg-danger"> 
+      <%= get_error_message(:first_name, @user) if @user.errors[:first_name] %>
+    </div>
+  </div>
+  <div class="formgroup">
+    <%= f.label :last_name %>
+    <%= f.text_field :last_name, :class => "form-control" %>
+    <div class="bg-danger"> 
+      <%= get_error_message(:last_name, @user) if @user.errors[:last_name] %>
+    </div>
+  </div>
+  <div class="formgroup">
+    <%= f.label :email %>
+    <%= f.email_field :email, :class => "form-control" %>
+    <div class="bg-danger"> 
+      <%= get_error_message(:email, @user) if @user.errors[:email] %>
+    </div>
+  </div>
+  <%= f.label :Default_billing_address %><br>
+  <select>
+    <option><%=@user.default_billing_address_id.street_address %></option>
+  </select><br>
+  <%= f.label :Default_shipping_address %><br>
+  <select>
+    <option><%=@user.default_billing_address_id.street_address %></option>
+  </select><br><br>
+  <%= f.submit "Create" %>
+<% end %>
+<%= link_to "Delete", user_path(@user), :method => :delete, data: {confirm: "Are you sure?"} %>

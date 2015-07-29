@@ -13,8 +13,8 @@ class CreditCardsController < ApplicationController
     redirect_to users_path
   end
 
-  def show
-    @credit_card = User.find(params[:id]).credit_card
-  end
+  # def show
+  #   @credit_card = User.find(params[:id]).credit_card
+  # end
 
 end

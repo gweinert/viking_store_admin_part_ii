@@ -7,6 +7,12 @@ belongs_to :default_billing_address_id, :class_name => "Address",
 has_one :credit_card
 has_many :orders
 
+validates :first_name, :last_name, :email,
+          :presence => { :message => "Can not be blank"}
+
+validates :email,
+          :uniqueness => {:message => "Email already exits"}
+
  
 
 
