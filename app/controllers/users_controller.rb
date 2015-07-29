@@ -10,14 +10,8 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  # def addresses
-  #   @user = User.find(params[:id])
-  #   @user_addresses = Address.where(user_id = @user.id)
-  #   render 'user_addresses'
-  # end
-
   def unplaced
-
+    @user = User.find(params[:id])
   end
   
   def new
@@ -67,5 +61,6 @@ class UsersController < ApplicationController
     def params_hash
       params.require(:user).permit(:first_name, :last_name, :email, :billing_id, :shipping_id)
     end
+
 
 end

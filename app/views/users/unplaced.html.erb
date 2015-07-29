@@ -1,0 +1,9 @@
+<h1> <%= "#{@user.first_name} #{@user.last_name}'s Cart" %> </h1>
+
+<ul>
+<%  @user.orders.last.products.each do |item| %>
+  <li><%= item.name %></li>
+<% end %>
+</ul>
+
+<%= link_to "Back to #{@user.first_name} #{@user.last_name}'s information" , @user , class: 'btn btn-xs btn-primary' %>

@@ -2,7 +2,13 @@ class Order < ActiveRecord::Base
   has_many :order_contents
   has_many :products, :through => :order_contents
   belongs_to :users
+  
 
+
+  def total
+    products.sum("price * quantity")
+  end
+  
   def self.time_series_day(days=7)
 
     self.select("date_trunc('day', orders.checkout_date) AS day, count(DISTINCT orders.id), SUM(order_contents.quantity * products.price)").
@@ -103,4 +109,6 @@ class Order < ActiveRecord::Base
         where('orders.checkout_date > ?', DateTime.now - days).order('cost')
       end
     end
+
+ 
 end
