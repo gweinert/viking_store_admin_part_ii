@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   include UsersHelper
+  
   def index 
     @users = User.all
 
@@ -9,8 +10,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
   end
 
-  def addresses
-  end
+  # def addresses
+  #   @user = User.find(params[:id])
+  #   @user_addresses = Address.where(user_id = @user.id)
+  #   render 'user_addresses'
+  # end
 
   def unplaced
 
@@ -64,5 +68,4 @@ class UsersController < ApplicationController
       params.require(:user).permit(:first_name, :last_name, :email, :billing_id, :shipping_id)
     end
 
->>>>>>> sep_admin_features
 end
