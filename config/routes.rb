@@ -9,5 +9,6 @@ Rails.application.routes.draw do
   resources :products
   resources :users
   resources :credit_cards
+  resources :orders
 end
 

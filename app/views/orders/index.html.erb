@@ -1,0 +1,61 @@
+<h1> All Orders </h1>
+<br>
+
+<h2 class="page-header">Order History <h2>
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <h3 class="panel-title"></h3>
+        </div>
+        <div class="panel-body">
+          <div class="table-responsive">
+          <table class="table table-bordered table-hover table-scrollable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>UserID</th>
+                <th>Address </th>
+                <th>City </th>
+                <th>State</th>
+                <th >Value</th>
+                <th>Status</th>
+                <th>Date Placed</th>
+                <th>Show</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody>
+            <% @orders.each do |order| %>
+              <tr>
+                <td><%= order.id %></td>
+                  <% if order.checkout_date %>
+                    <td><%= order.checkout_date.strftime("%m-%d-%y")    %>
+                    </td>
+                    <td>PLACED</td>
+                  <% else %>
+                    <td><%= order.created_at.strftime("%m-%d-%y")    %>
+                    </td>
+                    <td>
+                      <span class="text-danger">
+                        UNPLACED
+                      </span>
+                    </td>
+                  <% end %>
+                  <td>
+                    <%= order.total %></td>
+                  <td>
+                    <%= link_to "Show", class: "btn btn-xs btn-primary"%>
+                  </td>
+                  <td>
+                    <%= link_to "Edit",class: 'btn btn-xs btn-primary'%>
+                  </td>
+                  <td>
+                    <%= link_to "Delete",  method: 'delete', :data => {confirm: 'Are you sure you want to delete?'} ,class: 'btn btn-xs btn-danger' %>
+                  </td>
+                <% end %>
+              <tr>
+            </tbody>
+      </table>
+    </div>
+        </div>
+      </div>
